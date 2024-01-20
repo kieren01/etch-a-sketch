@@ -1,3 +1,31 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: brown;
+}
+
 .row {
     display: flex; 
+}
+
+button {
+    width: 10%;
+    height: 50px;
+    margin: 10px;
+    border: solid white;
+    border-radius: 8px;
+
+
+}
+
+
+#container {
+    background-color: white;
+    height: 750px;
+    width: 750px;
+    border: 3px solid brown; 
+    box-sizing: border-box;
+    /* margin: 2px;  */
 }
