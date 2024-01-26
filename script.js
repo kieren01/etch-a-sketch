@@ -1,52 +1,65 @@
-function getGridSize() {
-    var gridSize = prompt("Please enter grid size less than or equal to 100:");
-    return gridSize;
+const container = document.querySelector('#container');
+
+// Get the button elements
+const resize = document.querySelector('#resize');
+const reset = document.querySelector('#reset');
+
+// create default grid of 16 x 16
+createGrid(16);
+
+let userInput;
+resize.addEventListener('click', function() {
+    userInput = prompt('Enter a new grid size between 4 and 100 units:');
+    clearGrid();
+    createGrid(userInput);
+
+    const elements = document.querySelectorAll('.square');
+    elements.forEach(element => {
+        element.addEventListener('mouseover', () => {
+            element.style.backgroundColor = 'black';
+        })
+
+    });
+});
+
+reset.addEventListener('click', function() {
+    clearGrid();
+    // reset default grid if user input does not exist 
+    if (userInput) {
+        createGrid(userInput);
+    } else {
+        createGrid(16);
+    }
+})
+
+
+
+const elements = document.querySelectorAll('.square');
+    elements.forEach(element => {
+        element.addEventListener('mouseover', () => {
+            element.style.backgroundColor = 'black';
+        })
+    });
+
+
+function createGrid(gridSize) {
+    for (let i = 0; i < gridSize; i++) {
+        const row = document.createElement('div');
+        row.classList.add('row');
+        for (let j = 0; j < gridSize; j++) {
+            const square = document.createElement('div');
+            square.classList.add('square');
+            row.appendChild(square);
+        }
+        container.appendChild(row);
+    }   
 }
 
-function clearPreviousGrid() {
+
+function clearGrid() {
     const container = document.querySelector('#container');
     while(container.firstChild) {
         container.removeChild(container.firstChild);
     }
 }
 
-const button = document.querySelector('button');
-button.addEventListener('click', function() {
-    clearPreviousGrid();
-
-    // creating grid based on user input 
-    var gridSize = getGridSize();
-    // createGrid(gridSize);
-    const container = document.querySelector('#container');
-
-    minWidth = container.offsetWidth / gridSize + "px";
-    minHeight = container.offsetHeight / gridSize + "px";
-    console.log("minwidth is: ", minWidth);
-    console.log("minheight is: ", minHeight);
-
-    for (let i = 0; i < gridSize; i++) {
-        const row = document.createElement('div');
-        row.classList.add('row');
-        for (let j = 0; j < gridSize; j++) {
-            const column = document.createElement('div');
-            column.classList.add('col');
-            column.style.width = minWidth;
-            column.style.height = minHeight;
-            column.style.border = "1 px solid black";
-            row.appendChild(column);
-        }
-        container.appendChild(row);
-    }
-
-    // colouring divs as mouse hovers 
-    const elements = document.querySelectorAll('.col');
-    elements.forEach(element => {
-        element.addEventListener('mouseover', () => {
-            element.style.backgroundColor = 'black';
-        })
-
-        // element.addEventListener('mouseout', () => {
-        //     element.style.backgroundColor = '';
-        // })
-    });
-});
