@@ -13,6 +13,7 @@ resize.addEventListener('click', function() {
     // save previous user input in case where user does not input any value or selects cancel 
     oldUserInput = userInput
     userInput= validUserInput();
+    console.log(typeof(oldUserInput))
     if (userInput == null){
         createGrid(Num(oldUserInput));
     }
@@ -22,7 +23,7 @@ resize.addEventListener('click', function() {
     const elements = document.querySelectorAll('.square');
     elements.forEach(element => {
         element.addEventListener('mouseover', () => {
-            element.style.backgroundColor = 'black';
+            element.style.backgroundColor = randomColour();
         })
 
     });
@@ -40,14 +41,20 @@ reset.addEventListener('click', function() {
     else {
         createGrid(16);
     }
-})
 
+    const elements = document.querySelectorAll('.square');
+    elements.forEach(element => {
+        element.addEventListener('mouseover', () => {
+            element.style.backgroundColor = randomColour();
+        })
+    });
+})
 
 
 const elements = document.querySelectorAll('.square');
     elements.forEach(element => {
         element.addEventListener('mouseover', () => {
-            element.style.backgroundColor = 'black';
+            element.style.backgroundColor = randomColour();
         })
     });
 
@@ -86,4 +93,12 @@ function validUserInput() {
         }
     }
     return userInput;
+}
+
+function randomColour() {
+    var x = Math.floor(Math.random() * 256);
+    var y = Math.floor(Math.random() * 256);
+    var z = Math.floor(Math.random() * 256);
+    var colour = "rgb(" + x + "," + y + "," + z + ")";
+    return colour;
 }
