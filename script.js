@@ -9,7 +9,10 @@ createGrid(16);
 
 let userInput;
 resize.addEventListener('click', function() {
-    userInput = prompt('Enter a new grid size between 4 and 100 units:');
+    userInput = prompt('Enter a new grid size between 2 and 100 units (inclusive):');
+    while (userInput > 100 || userinput < 2){
+        prompt('Enter a new grid size between 2 and 100 units (inclusive):')
+    }
     clearGrid();
     createGrid(userInput);
 
@@ -63,3 +66,7 @@ function clearGrid() {
     }
 }
 
+function validUserInput() {
+    userInput = Number(prompt('Enter a new grid size between 2 and 100 units (inclusive):'));
+    while (userInput > 100)
+}
