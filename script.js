@@ -8,10 +8,13 @@ const reset = document.querySelector('#reset');
 createGrid(16);
 
 let userInput;
+let oldUserInput;
 resize.addEventListener('click', function() {
-    userInput = prompt('Enter a new grid size between 2 and 100 units (inclusive):');
-    while (userInput > 100 || userinput < 2){
-        prompt('Enter a new grid size between 2 and 100 units (inclusive):')
+    // save previous user input in case where user does not input any value or selects cancel 
+    oldUserInput = userInput
+    userInput= validUserInput();
+    if (userInput == null){
+        createGrid(Num(oldUserInput));
     }
     clearGrid();
     createGrid(userInput);
@@ -27,10 +30,14 @@ resize.addEventListener('click', function() {
 
 reset.addEventListener('click', function() {
     clearGrid();
-    // reset default grid if user input does not exist 
+    // if user inputs new value 
     if (userInput) {
         createGrid(userInput);
-    } else {
+    } // if user does not input new value or presses cancel in prompt 
+    else if (oldUserInput) {
+        createGrid(oldUserInput);
+    } // if user resets grid in its default state of 16 x 16 
+    else {
         createGrid(16);
     }
 })
@@ -66,7 +73,17 @@ function clearGrid() {
     }
 }
 
+
 function validUserInput() {
     userInput = Number(prompt('Enter a new grid size between 2 and 100 units (inclusive):'));
-    while (userInput > 100)
+    if (!userInput) {
+        return null;
+    }
+    while (userInput > 100 || userInput < 2) {
+        userInput = Number(prompt('Enter a new grid size between 2 and 100 units (inclusive):'));
+        if (!userInput) {
+            return null;
+        }
+    }
+    return userInput;
 }
